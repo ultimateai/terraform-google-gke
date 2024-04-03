@@ -12,19 +12,19 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 3.43.0 ,<= 5.23.0"
+      version = ">= 3.43.0 ,<= 5.23.0"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = "~> 3.43.0, <= 5.23.0"
+      version = ">= 3.43.0, <= 5.23.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 1.7.0, <= 2.0.0"
+      version = ">= 1.7.0, <= 2.0.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 1.1.1, <=2.12.1"
+      version = ">= 1.1.1, <=2.12.1"
     }
   }
 }
