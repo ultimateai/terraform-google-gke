@@ -8,22 +8,22 @@ terraform {
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
   # forwards compatible with 1.0.x code.
   required_version = ">= 0.12.26, <= 1.3.7"
-    required_providers {
+  required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 3.43.0 ,<= 5.23.0"
+      version = ">= 3.43.0 ,<= 5.23.0"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = "~> 3.43.0, <= 5.23.0"
+      version = ">= 3.43.0, <= 5.23.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 1.7.0, <= 2.0.0"
+      version = ">= 1.7.0, <= 2.0.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 1.1.1, <=2.12.1"
+      version = ">= 1.1.1, <=2.12.1"
     }
   }
 }
