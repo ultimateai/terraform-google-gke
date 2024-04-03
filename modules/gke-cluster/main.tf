@@ -8,6 +8,24 @@ terraform {
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
   # forwards compatible with 1.0.x code.
   required_version = ">= 0.12.26, <= 1.3.7"
+    required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 3.43.0 ,<= 5.23.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 3.43.0, <= 5.23.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 1.7.0, <= 2.0.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 1.1.1, <=2.12.1"
+    }
+  }
 }
 
 locals {
@@ -79,9 +97,6 @@ resource "google_container_cluster" "cluster" {
     enable_private_nodes    = var.enable_private_nodes
     master_ipv4_cidr_block  = var.master_ipv4_cidr_block
   }
-  gateway_api_config {
-    channel = var.gateway_api_config_channel
-  }
   addons_config {
     http_load_balancing {
       disabled = !var.http_load_balancing
@@ -107,6 +122,9 @@ resource "google_container_cluster" "cluster" {
       enabled = var.enable_persistent_disk_csi_driver_config
     }
 
+  }
+  gateway_api_config {
+    channel = var.gateway_api_config_channel
   }
 
   resource_usage_export_config {
