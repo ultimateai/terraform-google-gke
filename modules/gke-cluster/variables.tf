@@ -227,11 +227,21 @@ variable "enable_workload_identity" {
   type        = bool
 }
 
-variable "identity_namespace" {
+## Replaced with  on workload_pool variable ## 
+
+# variable "identity_namespace" {
+#   description = "Workload Identity Namespace. Default sets project based namespace [project_id].svc.id.goog"
+#   default     = null
+#   type        = string
+# }
+
+##workload_pool###
+variable "workload_pool" {
   description = "Workload Identity Namespace. Default sets project based namespace [project_id].svc.id.goog"
   default     = null
   type        = string
 }
+
 variable "enable_config_connector" {
   description = "Enable ConfigConnector addon (requires workload identity)"
   default     = false
