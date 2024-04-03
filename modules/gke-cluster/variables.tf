@@ -273,3 +273,9 @@ variable "dataset_id" {
   type        = string
   default     = "cluster_resource_usage"
 }
+
+variable "enable_gateway_api" {
+  description = "Gateaway API is a managed API Gateway for Google Cloud services. https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#nested_gateway_api_config IN order to enable it use CHANNEL_STANDARD"
+  type        = string
+  default     = "CHANNEL_DISABLED"
+}
