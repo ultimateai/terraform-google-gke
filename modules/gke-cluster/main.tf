@@ -79,7 +79,9 @@ resource "google_container_cluster" "cluster" {
     enable_private_nodes    = var.enable_private_nodes
     master_ipv4_cidr_block  = var.master_ipv4_cidr_block
   }
-
+  gateway_api_config {
+    channel = var.gateway_api_config_channel
+  }
   addons_config {
     http_load_balancing {
       disabled = !var.http_load_balancing
@@ -153,10 +155,6 @@ resource "google_container_cluster" "cluster" {
 
   release_channel {
     channel = var.release_channel
-  }
-
-  gateway_api_config {
-    channel = var.enable_gateway_api
   }
 
   lifecycle {
