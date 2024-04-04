@@ -8,6 +8,7 @@ terraform {
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
   # forwards compatible with 1.0.x code.
   required_version = ">= 0.12.26"
+  #cleanup line below ##
   # required_providers {
   #   google = {
   #     source  = "hashicorp/google"
