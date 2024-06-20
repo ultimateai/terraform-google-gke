@@ -227,7 +227,13 @@ variable "enable_workload_identity" {
   type        = bool
 }
 
-variable "identity_namespace" {
+# variable "identity_namespace" {
+#   description = "Workload Identity Namespace. Default sets project based namespace [project_id].svc.id.goog"
+#   default     = null
+#   type        = string
+# }
+
+variable "workload_pool" {
   description = "Workload Identity Namespace. Default sets project based namespace [project_id].svc.id.goog"
   default     = null
   type        = string

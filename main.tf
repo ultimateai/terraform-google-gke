@@ -8,23 +8,27 @@ terraform {
   # This module is now only being tested with Terraform 1.0.x. However, to make upgrading easier, we are setting
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
   # forwards compatible with 1.0.x code.
-  required_version = ">= 0.12.26"
+  required_version = ">= 1.0.5"
   required_providers {
     google = {
-      source  = "hashicorp/google"
-      version = "~> 3.43.0"
+      source = "hashicorp/google"
+      # version = "~> 3.43.0"
+      version = "~> 4.79.0"
     }
     google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 3.43.0"
+      source = "hashicorp/google-beta"
+      # version = "~> 3.43.0"
+      version = "~> 4.79.0"
     }
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 1.7.0"
+      source = "hashicorp/kubernetes"
+      # version = "~> 1.7.0"
+      version = "~> 2.23.0"
     }
     helm = {
-      source  = "hashicorp/helm"
-      version = "~> 1.1.1"
+      source = "hashicorp/helm"
+      # version = "~> 1.1.1"
+      version = "~> 2.10.0"
     }
   }
 }
@@ -73,7 +77,7 @@ data "google_client_openid_userinfo" "terraform_user" {}
 
 provider "kubernetes" {
 
-  load_config_file       = false
+  # load_config_file       = false
   host                   = data.template_file.gke_host_endpoint.rendered
   token                  = data.template_file.access_token.rendered
   cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
@@ -85,7 +89,7 @@ provider "helm" {
     host                   = data.template_file.gke_host_endpoint.rendered
     token                  = data.template_file.access_token.rendered
     cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
-    load_config_file       = false
+    # load_config_file       = false
   }
 }
 
