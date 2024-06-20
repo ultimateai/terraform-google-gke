@@ -7,12 +7,14 @@ terraform {
   # This module is now only being tested with Terraform 1.0.x. However, to make upgrading easier, we are setting
   # 0.12.26 as the minimum version, as that version added support for required_providers with source URLs, making it
   # forwards compatible with 1.0.x code.
-  required_version = ">= 0.12.26"
+  required_version = ">= 1.0.5"
 }
 
 locals {
-  workload_identity_config = !var.enable_workload_identity ? [] : var.identity_namespace == null ? [{
-    identity_namespace = "${var.project}.svc.id.goog" }] : [{ identity_namespace = var.identity_namespace
+  #workload_identity_config = !var.enable_workload_identity ? [] : var.identity_namespace == null ? [{
+  #identity_namespace = "${var.project}.svc.id.goog" }] : [{ identity_namespace = var.identity_namespace
+  workload_identity_config = !var.enable_workload_identity ? [] : var.workload_pool == null ? [{
+    workload_pool = "${var.project}.svc.id.goog" }] : [{ workload_pool = var.workload_pool
   }]
 }
 
@@ -105,9 +107,9 @@ resource "google_container_cluster" "cluster" {
     }
 
   }
-  # gateway_api_config {
-  #   channel = var.gateway_api_config_channel
-  # }
+  gateway_api_config {
+    channel = var.gateway_api_config_channel
+  }
 
   resource_usage_export_config {
     enable_network_egress_metering       = var.enable_network_egress_metering
@@ -130,8 +132,11 @@ resource "google_container_cluster" "cluster" {
   }
 
   master_auth {
-    username = var.basic_auth_username
-    password = var.basic_auth_password
+    client_certificate_config {
+      issue_client_certificate = false
+      # username = var.basic_auth_username
+      # password = var.basic_auth_password
+    }
   }
 
   dynamic "master_authorized_networks_config" {
@@ -192,7 +197,8 @@ resource "google_container_cluster" "cluster" {
     for_each = local.workload_identity_config
 
     content {
-      identity_namespace = workload_identity_config.value.identity_namespace
+      #identity_namespace = workload_identity_config.value.identity_namespace
+      workload_pool = workload_identity_config.value.workload_pool
     }
   }
 
