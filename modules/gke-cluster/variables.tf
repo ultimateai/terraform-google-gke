@@ -33,6 +33,12 @@ variable "cluster_secondary_range_name" {
   type        = string
 }
 
+variable "cluster_additional_pod_range_name" {
+  description = "The name of the Pod additional address range for the cluster to use"
+  type        = string
+  default     = ""
+}
+
 variable "release_channel" {
   description = "The release channel for k8s cluster for regular upgrades"
   type        = string

@@ -41,6 +41,12 @@ variable "cluster_service_account_description" {
   default     = "Example GKE Cluster Service Account managed by Terraform"
 }
 
+variable "release_channel" {
+  description = "The release channel for the GKE cluster. Valid values are 'RAPID', 'REGULAR', and 'STABLE'."
+  type        = string
+  default     = "REGULAR"
+}
+
 # Kubectl options
 
 variable "kubectl_config_path" {
@@ -105,4 +111,10 @@ variable "vpc_secondary_cidr_block" {
   description = "The IP address range of the VPC's secondary address range in CIDR notation. A prefix of /16 is recommended. Do not use a prefix higher than /27."
   type        = string
   default     = "10.4.0.0/16"
+}
+
+variable "cluster_additional_pod_range_name" {
+  description = "The name associated with the additional pod range."
+  type        = string
+  default     = ""
 }
