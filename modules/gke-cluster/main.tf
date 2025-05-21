@@ -81,7 +81,7 @@ resource "google_container_cluster" "cluster" {
       pod_range_names = additional_pod_ranges_config.value
     }
   }
-  
+
   # We can optionally control access to the cluster
   # See https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters
   private_cluster_config {

@@ -105,8 +105,8 @@ module "gke_cluster" {
 
   name = var.cluster_name
 
-  project  = var.project
-  location = var.location
+  project         = var.project
+  location        = var.location
   release_channel = var.release_channel
 
   # We're deploying the cluster in the 'public' subnetwork to allow outbound internet access
