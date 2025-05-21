@@ -74,10 +74,10 @@ resource "google_container_cluster" "cluster" {
     services_secondary_range_name = var.services_secondary_range_name
   
     dynamic "additional_pod_ranges_config" {
-      for_each = var.cluster_additional_pod_range_name != "" ? [var.cluster_additional_pod_range_name] : []
+      for_each = length(var.cluster_additional_pod_range_names) > 0 ? [1] : []
 
       content {
-        pod_range_names = additional_pod_ranges_config.value
+        pod_range_names = var.cluster_additional_pod_range_names
       }
     }
   }

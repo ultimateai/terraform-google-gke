@@ -33,10 +33,10 @@ variable "cluster_secondary_range_name" {
   type        = string
 }
 
-variable "cluster_additional_pod_range_name" {
+variable "cluster_additional_pod_range_names" {
   description = "The name of the Pod additional address range for the cluster to use"
-  type        = string
-  default     = ""
+  type        = set(string)
+  default     = []
 }
 
 variable "release_channel" {

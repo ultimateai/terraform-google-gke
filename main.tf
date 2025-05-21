@@ -116,7 +116,7 @@ module "gke_cluster" {
   subnetwork                   = module.vpc_network.public_subnetwork
   cluster_secondary_range_name = module.vpc_network.public_subnetwork_secondary_range_name
 
-  cluster_additional_pod_range_name = var.cluster_additional_pod_range_name
+  cluster_additional_pod_range_names = var.cluster_additional_pod_range_names
 
   # To make testing easier, we keep the public endpoint available. In production, we highly recommend restricting access to only within the network boundary, requiring your users to use a bastion host or VPN.
   disable_public_endpoint = "false"

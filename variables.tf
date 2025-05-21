@@ -113,8 +113,8 @@ variable "vpc_secondary_cidr_block" {
   default     = "10.4.0.0/16"
 }
 
-variable "cluster_additional_pod_range_name" {
+variable "cluster_additional_pod_range_names" {
   description = "The name associated with the additional pod range."
-  type        = string
-  default     = ""
+  type        = set(string)
+  default     = []
 }
