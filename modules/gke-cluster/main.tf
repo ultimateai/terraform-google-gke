@@ -74,6 +74,14 @@ resource "google_container_cluster" "cluster" {
     services_secondary_range_name = var.services_secondary_range_name
   }
 
+  dynamic "additional_pod_ranges_config" {
+    for_each = var.cluster_additional_pod_range_name != "" ? [var.cluster_additional_pod_range_name] : []
+
+    content {
+      pod_range_names = additional_pod_ranges_config.value
+    }
+  }
+
   # We can optionally control access to the cluster
   # See https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters
   private_cluster_config {

@@ -105,8 +105,9 @@ module "gke_cluster" {
 
   name = var.cluster_name
 
-  project  = var.project
-  location = var.location
+  project         = var.project
+  location        = var.location
+  release_channel = var.release_channel
 
   # We're deploying the cluster in the 'public' subnetwork to allow outbound internet access
   # See the network access tier table for full details:
@@ -114,6 +115,8 @@ module "gke_cluster" {
   network                      = module.vpc_network.network
   subnetwork                   = module.vpc_network.public_subnetwork
   cluster_secondary_range_name = module.vpc_network.public_subnetwork_secondary_range_name
+
+  cluster_additional_pod_range_name = var.cluster_additional_pod_range_name
 
   # To make testing easier, we keep the public endpoint available. In production, we highly recommend restricting access to only within the network boundary, requiring your users to use a bastion host or VPN.
   disable_public_endpoint = "false"
