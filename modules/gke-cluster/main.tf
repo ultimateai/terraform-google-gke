@@ -72,13 +72,13 @@ resource "google_container_cluster" "cluster" {
     // Choose the range, but let GCP pick the IPs within the range
     cluster_secondary_range_name  = var.cluster_secondary_range_name
     services_secondary_range_name = var.services_secondary_range_name
-  }
+  
+    dynamic "additional_pod_ranges_config" {
+      for_each = var.cluster_additional_pod_range_name != "" ? [var.cluster_additional_pod_range_name] : []
 
-  dynamic "additional_pod_ranges_config" {
-    for_each = var.cluster_additional_pod_range_name != "" ? [var.cluster_additional_pod_range_name] : []
-
-    content {
-      pod_range_names = additional_pod_ranges_config.value
+      content {
+        pod_range_names = additional_pod_ranges_config.value
+      }
     }
   }
 
