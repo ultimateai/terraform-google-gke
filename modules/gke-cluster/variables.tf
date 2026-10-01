@@ -251,6 +251,24 @@ variable "enable_config_connector" {
   type        = bool
 }
 
+variable "enable_managed_prometheus" {
+  description = "Manage Google Cloud Managed Service for Prometheus collection on the cluster. null leaves the addon untouched."
+  type        = bool
+  default     = null
+}
+
+variable "monitoring_components" {
+  description = "Cloud Monitoring components exposing metrics ([] disables Cloud Monitoring). null leaves the monitoring config untouched."
+  type        = list(string)
+  default     = null
+}
+
+variable "logging_components" {
+  description = "Cloud Logging components ([] disables Cloud Logging). null leaves the logging config untouched."
+  type        = list(string)
+  default     = null
+}
+
 variable "enable_dns_cache_config" {
   description = "Enable NodeLocal DNSCache on the cluster. Changing this property on an existing cluster is a disruptive process"
   default     = false

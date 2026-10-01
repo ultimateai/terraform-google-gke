@@ -72,7 +72,7 @@ resource "google_container_cluster" "cluster" {
     // Choose the range, but let GCP pick the IPs within the range
     cluster_secondary_range_name  = var.cluster_secondary_range_name
     services_secondary_range_name = var.services_secondary_range_name
-  
+
     dynamic "additional_pod_ranges_config" {
       for_each = length(var.cluster_additional_pod_range_names) > 0 ? [1] : []
 
@@ -117,6 +117,36 @@ resource "google_container_cluster" "cluster" {
   }
   gateway_api_config {
     channel = var.gateway_api_config_channel
+  }
+
+  # Cloud Monitoring / Cloud Logging components and Google Cloud Managed Service
+  # for Prometheus. Omitted entirely (null vars) when the caller does not manage
+  # them, so existing consumers keep their current cluster settings untouched.
+  # Note: when monitoring_components is set to [], set monitoring_service to
+  # "none" as well, otherwise the API reports monitoringService "none" back and
+  # every plan drifts against the default "monitoring.googleapis.com/kubernetes".
+  dynamic "monitoring_config" {
+    for_each = var.monitoring_components != null || var.enable_managed_prometheus != null ? [1] : []
+
+    content {
+      enable_components = var.monitoring_components
+
+      dynamic "managed_prometheus" {
+        for_each = var.enable_managed_prometheus != null ? [1] : []
+
+        content {
+          enabled = var.enable_managed_prometheus
+        }
+      }
+    }
+  }
+
+  dynamic "logging_config" {
+    for_each = var.logging_components != null ? [1] : []
+
+    content {
+      enable_components = var.logging_components
+    }
   }
 
   resource_usage_export_config {
